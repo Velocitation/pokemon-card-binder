@@ -1,0 +1,122 @@
+.binder-slot {
+  aspect-ratio: 2.5 / 3.5;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.2s ease;
+  background: #fafafa;
+  cursor: grab;
+  min-height: 120px;
+}
+
+.binder-slot:active {
+  cursor: grabbing;
+}
+
+.binder-slot.has-card {
+  border: 2px solid #007bff;
+  background: white;
+  padding: 4px;
+}
+
+.binder-slot.empty:hover {
+  border-color: #007bff;
+  background: #f0f8ff;
+}
+
+.binder-slot.dragging {
+  opacity: 0.5;
+  transform: rotate(2deg);
+}
+
+.card-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.card-container .card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.remove-button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: rgba(220, 53, 69, 0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+.card-container:hover .remove-button {
+  opacity: 1;
+}
+
+.remove-button:hover {
+  background: #dc3545;
+  transform: scale(1.1);
+}
+
+.card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+  padding: 0.5rem 0.25rem 0.25rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.card-container:hover .card-overlay {
+  opacity: 1;
+}
+
+.card-name {
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.2;
+  display: block;
+}
+
+.empty-slot {
+  color: #999;
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 0.5rem;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .binder-slot {
+    min-height: 80px;
+  }
+
+  .card-name {
+    font-size: 0.6rem;
+  }
+
+  .empty-slot {
+    font-size: 0.7rem;
+  }
+}
