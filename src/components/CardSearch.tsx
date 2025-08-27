@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useMemo } from "react";
-import { Search, Loader2, X, Filter, Star, Clock } from "lucide-react";
+import { Search, Loader2, Filter, Star, Clock } from "lucide-react";
 import type { PokemonCard } from "../types/Card";
 import { PokemonTCGService } from "../services/PokemonTCGService";
 import "../styles/CardSearch.css";
@@ -131,7 +131,7 @@ const CardSearch: React.FC<CardSearchProps> = ({ onCardSelect }) => {
               className="clear-button"
               title="Clear search"
             >
-              <X size={16} />
+              ×
             </button>
           )}
           <button

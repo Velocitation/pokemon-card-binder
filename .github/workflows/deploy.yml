@@ -30,18 +30,26 @@ jobs:
           node-version: "18"
           cache: "npm"
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Clean install dependencies
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install
 
       - name: Verify installation
         run: |
           echo "Node version: $(node --version)"
           echo "NPM version: $(npm --version)"
-          ls -la node_modules/.bin/
-          npx vite --version
+          echo "Checking node_modules/.bin/:"
+          ls -la node_modules/.bin/ || echo "No .bin directory found"
+          echo "Checking for vite:"
+          which vite || echo "Vite not found in PATH"
+          echo "Checking local vite:"
+          ls -la node_modules/.bin/vite || echo "Local vite not found"
+          echo "Package.json scripts:"
+          cat package.json | grep -A 10 '"scripts"'
 
-      - name: Build
-        run: npx vite build
+      - name: Build project
+        run: npm run build
         env:
           VITE_POKEMON_TCG_API_KEY: ${{ secrets.POKEMON_TCG_API_KEY }}
 

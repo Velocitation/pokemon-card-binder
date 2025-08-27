@@ -46,7 +46,7 @@ const BinderSlot: React.FC<BinderSlotProps> = ({ id, card, onRemoveCard }) => {
               onRemoveCard(id);
             }}
           >
-            <X size={12} />
+            ×
           </button>
           <div className="card-overlay">
             <span className="card-name">{card.name}</span>

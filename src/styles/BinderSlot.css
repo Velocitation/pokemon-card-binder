@@ -1,15 +1,20 @@
 .binder-slot {
   aspect-ratio: 2.5 / 3.5;
-  border: 2px dashed #ddd;
-  border-radius: 8px;
+  border: 2px dashed #7f53ac;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   transition: all 0.2s ease;
-  background: #fafafa;
+  background: linear-gradient(
+    135deg,
+    rgba(44, 62, 80, 0.85) 0%,
+    rgba(72, 61, 139, 0.85) 100%
+  );
   cursor: grab;
   min-height: 120px;
+  box-shadow: 0 0 20px #7f53ac33;
 }
 
 .binder-slot:active {
@@ -17,46 +22,52 @@
 }
 
 .binder-slot.has-card {
-  border: 2px solid #007bff;
-  background: white;
+  border: 2px solid #7f53ac;
+  background: linear-gradient(135deg, #232946 60%, #7f53ac 100%);
   padding: 4px;
+  box-shadow: 0 0 20px #7f53ac55;
 }
 
 .binder-slot.empty:hover {
-  border-color: #007bff;
-  background: #f0f8ff;
+  border-color: #e91e63;
+  background: linear-gradient(135deg, #e91e63 60%, #7f53ac 100%);
+  box-shadow: 0 0 30px #e91e6355;
 }
 
 .binder-slot.dragging {
   opacity: 0.5;
   transform: rotate(2deg);
+  box-shadow: 0 0 40px #7f53ac99;
 }
 
 .card-container {
   width: 100%;
   height: 100%;
   position: relative;
-  border-radius: 6px;
+  border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 0 10px #7f53ac33;
 }
 
 .card-container .card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #7f53ac55;
+  border: 2px solid #7f53ac;
 }
 
 .remove-button {
   position: absolute;
   top: 4px;
   right: 4px;
-  background: rgba(220, 53, 69, 0.9);
+  background: linear-gradient(90deg, #e91e63 0%, #7f53ac 100%);
   color: white;
   border: none;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,6 +75,7 @@
   opacity: 0;
   transition: opacity 0.2s;
   z-index: 10;
+  box-shadow: 0 0 10px #e91e6355;
 }
 
 .card-container:hover .remove-button {
@@ -71,8 +83,24 @@
 }
 
 .remove-button:hover {
-  background: #dc3545;
-  transform: scale(1.1);
+  background: linear-gradient(90deg, #7f53ac 0%, #e91e63 100%);
+  transform: scale(1.15);
+  box-shadow: 0 0 20px #e91e6355;
+}
+
+/* Star/nebula accent (optional, for background) */
+
+.binder-slot::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: url("/assets/nebula-stars.png") repeat top left;
+  opacity: 0.18;
+  z-index: 0;
 }
 
 .card-overlay {
