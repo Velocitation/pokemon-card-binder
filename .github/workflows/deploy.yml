@@ -33,8 +33,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify installation
+        run: |
+          echo "Node version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+          ls -la node_modules/.bin/
+          npx vite --version
+
       - name: Build
-        run: npm run build
+        run: npx vite build
         env:
           VITE_POKEMON_TCG_API_KEY: ${{ secrets.POKEMON_TCG_API_KEY }}
 

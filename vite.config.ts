@@ -8,9 +8,4 @@ export default defineConfig({
     outDir: "docs",
     emptyOutDir: true,
   },
-  define: {
-    __POKEMON_API_KEY__: JSON.stringify(
-      process.env.VITE_POKEMON_TCG_API_KEY || ""
-    ),
-  },
 });
