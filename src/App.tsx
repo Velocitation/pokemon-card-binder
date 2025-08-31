@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Download, Save, Plus } from "lucide-react";
 import type { BinderLayout, BinderTemplate } from "./types/Binder";
 import type { PokemonCard } from "./types/Card";
@@ -12,7 +12,6 @@ function App() {
   const [templates, setTemplates] = useState<BinderTemplate[]>([]);
   const [availableBinders, setAvailableBinders] = useState<string[]>([]);
   const [cards, setCards] = useState<Map<string, PokemonCard>>(new Map());
-  const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
 
   useEffect(() => {
     loadInitialData();
@@ -84,29 +83,13 @@ function App() {
     newCards.set(card.id, card);
     setCards(newCards);
 
-    // Find first empty slot or use selected slot
-    const newCardPositions = [...currentBinder.cardPositions];
-    let targetIndex = selectedSlot;
-
-    if (targetIndex === null) {
-      targetIndex = newCardPositions.findIndex((pos) => pos.isEmpty);
+    // Use the BinderGrid's handleAddCard function
+    if (
+      typeof window !== "undefined" &&
+      (window as any).handleAddCardToBinder
+    ) {
+      (window as any).handleAddCardToBinder(card);
     }
-
-    if (targetIndex !== -1) {
-      newCardPositions[targetIndex] = {
-        ...newCardPositions[targetIndex],
-        cardId: card.id,
-        isEmpty: false,
-      };
-
-      setCurrentBinder({
-        ...currentBinder,
-        cardPositions: newCardPositions,
-        updatedAt: new Date().toISOString(),
-      });
-    }
-
-    setSelectedSlot(null);
   };
 
   const saveBinder = () => {
@@ -125,30 +108,11 @@ function App() {
     }
   };
 
-  const updateBinderName = (newName: string) => {
-    if (currentBinder) {
-      setCurrentBinder({
-        ...currentBinder,
-        name: newName,
-        updatedAt: new Date().toISOString(),
-      });
-    }
-  };
-
   return (
     <div className="app">
       <header className="app-header">
         <div className="header-left">
-          <h1>🎴 Pokemon Card Binder</h1>
-          {currentBinder && (
-            <input
-              type="text"
-              value={currentBinder.name}
-              onChange={(e) => updateBinderName(e.target.value)}
-              className="binder-name-input"
-              placeholder="Binder name..."
-            />
-          )}
+          <h1>🎴 Pokémon Binder Builder</h1>
         </div>
 
         <div className="controls">
@@ -192,7 +156,6 @@ function App() {
 
       <div className="app-content">
         <aside className="sidebar">
-          <h3>Search Cards</h3>
           <CardSearch onCardSelect={handleCardSelect} />
 
           {currentBinder && (
@@ -226,6 +189,12 @@ function App() {
             <div className="empty-state">
               <h2>Welcome to Pokemon Card Binder!</h2>
               <p>Create your first binder to get started.</p>
+              <p>
+                <em>
+                  💡 Tip: Once you have a binder, click on the binder title to
+                  edit it!
+                </em>
+              </p>
               <button
                 onClick={() =>
                   templates.length > 0 && createNewBinder(templates[0].id)

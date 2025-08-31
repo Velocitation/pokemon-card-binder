@@ -89,28 +89,40 @@ export class DataService {
     }
   }
 
+  //Fall back in case index.json cannot load
   private static getDefaultTemplates(): BinderTemplate[] {
     return [
       {
-        id: "9-pocket",
-        name: "9-Pocket Standard",
+        id: "Vault X 4-Pocket",
+        name: "Vault X 4-Pocket Zip Binder",
+        dimensions: { rows: 2, cols: 2 },
+        description: "Vault X 4-pocket binder (160 cards)",
+        isDefault: true,
+        maxPage: 20,
+      },
+      {
+        id: "Vault X 9-Pocket",
+        name: "Vault X 9-Pocket Zip Binder",
         dimensions: { rows: 3, cols: 3 },
-        description: "Standard 9-pocket binder page",
-        isDefault: true,
-      },
-      {
-        id: "ultra-pro-18",
-        name: "Ultra Pro 18-Pocket",
-        dimensions: { rows: 2, cols: 9 },
-        description: "Ultra Pro side-loading 18-pocket page",
-        isDefault: true,
-      },
-      {
-        id: "custom-4x4",
-        name: "Custom 4x4",
-        dimensions: { rows: 4, cols: 4 },
-        description: "Custom 16-card layout",
+        description: "Vault X 9-pocket binder (360 cards)",
         isDefault: false,
+        maxPage: 20,
+      },
+      {
+        id: "Vault X 12-Pocket",
+        name: "Vault X 12-Pocket Zip Binder",
+        dimensions: { rows: 3, cols: 4 },
+        description: "Vault X 12-pocket binder (480 cards)",
+        isDefault: true,
+        maxPage: 20,
+      },
+      {
+        id: "Vault X 12-Pocket XL",
+        name: "Vault X 12-Pocket Zip Binder XL",
+        dimensions: { rows: 3, cols: 4 },
+        description: "Vault X 12-pocket binder XL (624 cards)",
+        isDefault: false,
+        maxPage: 26,
       },
     ];
   }
@@ -139,6 +151,7 @@ export class DataService {
         isEmpty: true,
       })),
       template: templateId,
+      maxPage: template.maxPage,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };

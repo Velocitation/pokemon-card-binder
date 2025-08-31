@@ -1,17 +1,8 @@
 .binder-container {
-  background: linear-gradient(
-    90deg,
-    rgba(44, 62, 80, 0.85) 0%,
-    rgba(72, 61, 139, 0.85) 100%
-  );
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 8px 32px #7f53ac33, 0 0 0 2px #232946 inset;
-  backdrop-filter: blur(12px);
-  max-width: 1200px;
-  margin: 0 auto;
-  color: #f8f9fa;
-  position: relative;
+  padding: 1.5rem 2rem;
+  color: var(--text-light);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .binder-header {
@@ -20,31 +11,64 @@
   align-items: center;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #7f53ac;
+  border-bottom: 2px solid var(--primary-purple);
 }
 
 .binder-header h2 {
   margin: 0;
-  color: #7f53ac;
+  color: var(--primary-purple);
   font-size: 1.5rem;
-  font-family: "Orbitron", "Montserrat", "Segoe UI", sans-serif;
-  letter-spacing: 0.08em;
-  text-shadow: 0 0 12px #7f53ac99;
+  font-family: var(--font-primary);
+  letter-spacing: var(--letter-spacing);
+  text-shadow: var(--glow-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+}
+
+.binder-header h2:hover {
+  background: rgba(127, 83, 172, 0.1);
+  transform: scale(1.02);
+}
+
+.binder-title-input {
+  margin: 0;
+  color: var(--primary-purple);
+  font-size: 1.5rem;
+  font-family: var(--font-primary);
+  letter-spacing: var(--letter-spacing);
+  text-shadow: var(--glow-primary);
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid var(--primary-purple);
+  border-radius: 8px;
+  padding: 0.25rem 0.5rem;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.binder-title-input:focus {
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 20px rgba(233, 30, 99, 0.4);
+  transform: scale(1.02);
 }
 
 .binder-info {
-  color: #b39ddb;
+  color: var(--light-purple);
   font-size: 0.95rem;
-  background: linear-gradient(90deg, #232946 60%, #7f53ac 100%);
+  background: rgba(0, 0, 0, 0.4);
   padding: 0.5rem 1.2rem;
   border-radius: 20px;
-  box-shadow: 0 0 10px #7f53ac33;
+  border: 1px solid rgba(74, 144, 226, 0.3);
 }
 
 .binder-grid {
   display: grid;
   gap: 1rem;
-  max-width: 100%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -63,17 +87,9 @@
   box-shadow: 0 0 10px #7f53ac55;
 }
 
-/* Responsive grid sizing */
-@media (max-width: 1200px) {
-  .binder-grid {
-    gap: 0.5rem;
-  }
-}
-
 @media (max-width: 768px) {
   .binder-container {
     padding: 1rem;
-    border-radius: 16px;
   }
 
   .binder-header {
@@ -86,16 +102,149 @@
     gap: 0.5rem;
   }
 }
-/* Star/nebula accent (optional, for background) */
-.binder-container::before {
-  content: "";
-  position: absolute;
+
+/* Navigation and controls */
+.page-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 0 1rem 0;
+  gap: 1rem;
+}
+
+.nav-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.nav-btn {
+  border-radius: 20px;
+  padding: 0.5rem 1.2rem;
+  background: var(--secondary-purple);
+  color: var(--text-light);
+  border: 1px solid var(--primary-purple);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: var(--primary-purple);
+  transform: translateY(-1px);
+}
+
+.page-info {
+  color: var(--light-purple);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.clear-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.clear-btn {
+  background: rgba(233, 30, 99, 0.2);
+  border: 1px solid rgba(233, 30, 99, 0.4);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-light);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+  background: rgba(233, 30, 99, 0.3);
+  border-color: rgba(233, 30, 99, 0.6);
+  transform: translateY(-1px);
+}
+
+.clear-btn.danger {
+  background: rgba(233, 30, 99, 0.3);
+  border-color: rgba(233, 30, 99, 0.5);
+}
+
+.clear-btn.danger:hover {
+  background: rgba(233, 30, 99, 0.4);
+  border-color: rgba(233, 30, 99, 0.7);
+}
+
+/* Clear dialog */
+.clear-dialog-overlay {
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background: url("/assets/nebula-stars.png") repeat top left;
-  opacity: 0.18;
-  z-index: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.clear-dialog {
+  background: var(--secondary-purple);
+  border: 2px solid var(--primary-purple);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 400px;
+  text-align: center;
+}
+
+.clear-dialog h3 {
+  margin: 0 0 1rem 0;
+  color: var(--primary-purple);
+  font-family: var(--font-primary);
+}
+
+.clear-dialog p {
+  margin: 0 0 2rem 0;
+  color: var(--text-light);
+}
+
+.dialog-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.dialog-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.dialog-btn.cancel {
+  background: #6c757d;
+  color: #fff;
+}
+
+.dialog-btn.cancel:hover {
+  background: #5a6268;
+}
+
+.dialog-btn.confirm {
+  background: var(--gradient-accent);
+  color: #fff;
+}
+
+.dialog-btn.confirm:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--glow-accent);
 }

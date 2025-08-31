@@ -16,6 +16,7 @@ export interface BinderLayout {
   };
   cardPositions: CardPosition[];
   template: string;
+  maxPage?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -26,4 +27,5 @@ export interface BinderTemplate {
   dimensions: { rows: number; cols: number };
   description: string;
   isDefault: boolean;
+  maxPage: number;
 }

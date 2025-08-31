@@ -1,62 +1,96 @@
+:root {
+  /* Core Colors */
+  --primary-purple: #7f53ac;
+  --secondary-purple: #232946;
+  --accent-pink: #e91e63;
+  --light-purple: #b39ddb;
+  --text-light: #f8f9fa;
+  --text-muted: #bdbdbd;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(90deg, #232946 60%, #7f53ac 100%);
+  --gradient-accent: linear-gradient(90deg, #e91e63 0%, #7f53ac 100%);
+  --gradient-card: linear-gradient(90deg, #647dee 0%, #7f53ac 100%);
+
+  /* Effects */
+  --glow-primary: 0 0 12px #7f53ac99;
+  --glow-accent: 0 0 20px #e91e6355;
+  --shadow-card: 0 0 20px #7f53ac33;
+
+  /* Typography */
+  --font-primary: "Orbitron", "Montserrat", "Segoe UI", sans-serif;
+  --letter-spacing: 0.08em;
+}
+
 .app {
   min-height: 100vh;
-  background: radial-gradient(ellipse at top left, #232946 60%, #1a1a2e 100%),
-    url("/assets/stars-bg.png");
-  background-size: cover;
-  color: #f8f9fa;
-  font-family: "Orbitron", "Montserrat", "Segoe UI", sans-serif;
-  position: relative;
+  width: 100vw;
+  background: radial-gradient(
+    ellipse at top left,
+    var(--secondary-purple) 60%,
+    #1a1a2e 100%
+  );
+  color: var(--text-light);
+  font-family: var(--font-primary);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .app-header {
-  background: linear-gradient(
-    90deg,
-    rgba(44, 62, 80, 0.85) 0%,
-    rgba(72, 61, 139, 0.85) 100%
-  );
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   padding: 1rem 2rem;
-  box-shadow: 0 2px 20px #7f53ac55, 0 0 0 2px #232946 inset;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 2px solid var(--primary-purple);
   backdrop-filter: blur(10px);
-  border-bottom: 2px solid #7f53ac;
+  flex-shrink: 0;
 }
 
 .app-header h1 {
   margin: 0;
-  color: #7f53ac;
+  color: var(--primary-purple);
   font-size: 1.7rem;
-  font-family: "Orbitron", "Montserrat", "Segoe UI", sans-serif;
-  letter-spacing: 0.08em;
-  text-shadow: 0 0 12px #7f53ac99;
+  letter-spacing: var(--letter-spacing);
+  text-shadow: var(--glow-primary);
+  white-space: nowrap;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex: 1;
+  min-width: 0;
 }
 
 .controls {
   display: flex;
   gap: 1rem;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .controls select,
 .controls button {
   padding: 0.5rem 1rem;
-  border: 1px solid #7f53ac;
+  border: 1px solid var(--primary-purple);
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
-  background: linear-gradient(90deg, #232946 60%, #7f53ac 100%);
-  color: #f8f9fa;
+  background: var(--gradient-primary);
+  color: var(--text-light);
   font-family: inherit;
   transition: all 0.2s;
-  box-shadow: 0 0 10px #7f53ac33;
+  box-shadow: var(--shadow-card);
+  white-space: nowrap;
 }
 
 .controls button:hover:not(:disabled) {
-  background: linear-gradient(90deg, #e91e63 0%, #7f53ac 100%);
-  color: #fff;
+  background: var(--gradient-accent);
   transform: scale(1.07);
-  box-shadow: 0 0 20px #e91e6355;
+  box-shadow: var(--glow-accent);
 }
 
 .controls button:disabled {
@@ -66,63 +100,121 @@
 
 .app-content {
   display: flex;
-  min-height: calc(100vh - 80px);
+  flex: 1;
+  height: calc(100vh - 100px);
+  overflow: hidden;
 }
 
 .sidebar {
-  width: 350px;
-  background: linear-gradient(
-    90deg,
-    rgba(44, 62, 80, 0.85) 0%,
-    rgba(72, 61, 139, 0.85) 100%
-  );
-  padding: 1.5rem;
+  width: 385px;
+  max-width: 40vw;
+  height: 100%;
+  padding: 1rem;
+  box-shadow: 0 0 30px var(--primary-purple);
+  flex-shrink: 0;
   overflow-y: auto;
-  border-radius: 20px 0 0 20px;
-  box-shadow: 0 0 30px #7f53ac33;
-  color: #f8f9fa;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-purple) transparent;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--primary-purple);
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-pink);
 }
 
 .main-content {
   flex: 1;
-  padding: 1.5rem;
+  height: 100%;
+  padding: 0;
   overflow-y: auto;
-  background: transparent;
-  border-radius: 0 20px 20px 0;
-  box-shadow: 0 0 30px #23294633;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-purple) transparent;
 }
 
+.main-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background: var(--primary-purple);
+  border-radius: 4px;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-pink);
+}
+
+.empty-state {
+  padding-left: 2rem;
+}
+
+/* Mobile */
 @media (max-width: 768px) {
   .app-content {
     flex-direction: column;
+    height: calc(100vh - 120px);
   }
 
   .sidebar {
     width: 100%;
-    max-height: 300px;
-    border-radius: 20px 20px 0 0;
+    max-width: none;
+    height: 40vh;
+    max-height: 40vh;
   }
 
   .main-content {
-    border-radius: 0 0 20px 20px;
+    height: 60vh;
   }
 
   .app-header {
+    padding: 1rem;
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .header-left {
+    width: 100%;
+    justify-content: center;
     text-align: center;
   }
+
+  .binder-name-input {
+    min-width: 200px;
+    max-width: 300px;
+  }
+
+  .controls {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }
-/* Star/nebula accent (optional, for background) */
-.app::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  background: url("/assets/nebula-stars.png") repeat top left;
-  opacity: 0.18;
-  z-index: 0;
+
+@media (max-width: 480px) {
+  .header-left {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .binder-name-input {
+    min-width: 180px;
+    max-width: 250px;
+  }
 }
